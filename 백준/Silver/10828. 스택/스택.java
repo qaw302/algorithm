@@ -1,75 +1,70 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
-/**
- * Stack10828
- */
 public class Main {
-    private int[] stack;
-    int cursor = -1;
 
-    public Main(int capacity) {
-        stack = new int[capacity];
+  private int[] elements;
+  private int top = -1;
+
+  public Main() {
+    elements = new int[16];
+  }
+
+  public Main(int size) {
+    elements = new int[size];
+  }
+
+  public void push(int n) {
+    elements[++top] = n;
+  }
+
+  public int pop() {
+    if (top == -1) {
+      return -1;
     }
+    int result = elements[top];
+    elements[top--] = 0;
+    return result;
+  }
 
-    public void push(int num) {
-        if (cursor < stack.length - 1) {
-            stack[++cursor] = num;
-        } else {
-            // System.out.println("stack is pull");
-        }
+  public int size() {
+    return top + 1;
+  }
+
+  public int empty() {
+    return top == -1 ? 1 : 0;
+  }
+
+  public int top() {
+    if (top == -1) {
+      return -1;
     }
+    return elements[top];
+  }
 
-    public int pop() {
-        int result = -1;
-        if (empty() == 1) {
-            // System.out.println("Stack is empty");
-        } else {
-            result = stack[cursor];
-            stack[cursor--] = 0;
-        }
-        return result;
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    int count = Integer.parseInt(br.readLine());
+    Main stack10828 = new Main(count);
+    for (int i = 0; i < count; i++) {
+      String command = br.readLine();
+      String method = command.split(" ")[0];
+
+      if ("push".equals(method)) {
+        stack10828.push(Integer.parseInt(command.split(" ")[1]));
+      } else if ("pop".equals(method)) {
+        System.out.println(stack10828.pop());
+      } else if ("size".equals(method)) {
+        System.out.println(stack10828.size());
+      } else if ("empty".equals(method)) {
+        System.out.println(stack10828.empty());
+      } else if ("top".equals(method)) {
+        System.out.println(stack10828.top());
+      } else {
+        System.out.println("error");
+      }
     }
-
-    public int size() {
-        return cursor + 1;
-    }
-
-    public int empty() {
-        return cursor < 0 ? 1 : 0;
-    }
-
-    public int top() {
-        return empty() == 1 ? -1 : stack[cursor];
-    }
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Main stack = new Main(10000);
-        int num = Integer.parseInt(br.readLine());
-        for (int i = 0; i < num; i++) {
-            String[] input = br.readLine().split(" ");
-            switch (input[0]) {
-                case "push":
-                    stack.push(Integer.parseInt(input[1]));
-                    break;
-                case "pop":
-                    System.out.println(stack.pop());
-                    break;
-                case "size":
-                    System.out.println(stack.size());
-                    break;
-                case "empty":
-                    System.out.println(stack.empty());
-                    break;
-                case "top":
-                    System.out.println(stack.top());
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
+  }
 }
