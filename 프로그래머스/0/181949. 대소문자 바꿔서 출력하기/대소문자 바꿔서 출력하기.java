@@ -4,11 +4,11 @@ public class Solution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String a = sc.next();
-        for (char c : a.toCharArray()) {
-            if (c <= 122 && c >= 97) {
-                System.out.print(String.valueOf(c).toUpperCase());
-            } else if (c >= 65 && c <= 90) {
-                System.out.print(String.valueOf(c).toLowerCase());
+        for (Character c : a.toCharArray()) {
+            if (Character.isLowerCase(c)) {
+                System.out.print(Character.toUpperCase(c));
+            } else if (Character.isUpperCase(c)) {
+                System.out.print(Character.toLowerCase(c));
             }
         }
         
