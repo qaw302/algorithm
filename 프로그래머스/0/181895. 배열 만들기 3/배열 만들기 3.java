@@ -7,12 +7,13 @@ class Solution {
         
         int[] answer = new int[end0-start0+1 + end1-start1+1];
         
+        int idx = 0;
         for (int i = start0; i<= end0; i++) {
-            answer[i-start0] = arr[i];
+            answer[idx++] = arr[i];
         }
         
         for (int j = start1; j<=end1; j++) {
-            answer[j-start1 + (end0-start0) +1] = arr[j];
+            answer[idx++] = arr[j];
         }
         
         return answer;
