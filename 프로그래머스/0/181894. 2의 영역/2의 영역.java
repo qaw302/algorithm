@@ -8,21 +8,14 @@ class Solution {
             if (arr[i] == 2) {
                 if (start == -1) {
                     start = i;
-                    end = i;
-                } else {
-                    end = i;
                 }
+                end = i;
             }
         }
-        if (start == -1 && end == -1) {
-            answer = new int[1];
-            answer[0] = -1;
-            return answer;
+        if (start == -1) {
+            return new int[]{-1};
         }
 
-        answer = new int[end-start+1];
-        System.arraycopy(arr, start, answer, 0, end-start+1);
-
-        return answer;
+        return Arrays.copyOfRange(arr, start, end+1);
     }
 }
