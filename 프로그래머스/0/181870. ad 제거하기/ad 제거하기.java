@@ -7,9 +7,6 @@ class Solution {
             }
             answer += str+",";
         }
-        if (answer.lastIndexOf(",")==answer.length()-1) {
-            answer = answer.substring(0, answer.length()-1);
-        }
         return answer.split(",");
     }
 }
