@@ -12,7 +12,8 @@ public class Main
         int t = Integer.parseInt(br.readLine());
         for (int i=0; i<t; i++) {
             StringTokenizer tk = new StringTokenizer(br.readLine(), ",");
-            sb.append(Integer.parseInt(tk.nextToken()) + Integer.parseInt(tk.nextToken()) + "\n");
+            sb.append(Integer.parseInt(tk.nextToken()) + Integer.parseInt(tk.nextToken()));
+            sb.append("\n");
         }
         System.out.print(sb.toString());
         br.close();
