@@ -4,27 +4,24 @@ import java.io.*;
 public class Main {
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        Map<Long, Long> cards = new HashMap<>();
-        for (int i=0; i<n; i++) {
-            long num = Long.parseLong(br.readLine());
-            long value = 1;
-            if (cards.containsKey(num)) {
-                value = cards.get(num)+1;
-            }
-            cards.put(num, value);
-        }
-
+        int N = Integer.parseInt(br.readLine());
+        
         long result = 0;
-        long maxCnt = 0;
-        for (long key : cards.keySet()) {
-            long value = cards.get(key);
+        int maxCnt = 0;
+        Map<Long, Integer> cards = new HashMap<>();
+        for (int i=0; i<N; i++) {
+            long n = Long.parseLong(br.readLine());
+            int value = cards.getOrDefault(n, 0) + 1;
             if (value > maxCnt) {
-                result = key;
+                result = n;
                 maxCnt = value;
-            } else if (value == maxCnt && key < result) {
-                result = key;
+            } else if (value == maxCnt) {
+                if (n < result) {
+                    result = n;
+                }
             }
+            
+            cards.put(n, value);
         }
 
         System.out.println(result);
