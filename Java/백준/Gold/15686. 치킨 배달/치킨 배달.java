@@ -7,6 +7,8 @@ class Main {
     public static boolean[] visited;
     public static int answer = Integer.MAX_VALUE;
 
+    public static int[][] dist;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -26,8 +28,19 @@ class Main {
             }
         }
 
-        visited = new boolean[chickenList.size()];
-        combination(0, 0, chickenList.size(), M);
+        int H = homeList.size();
+        int C = chickenList.size();
+        dist = new int[H][C];
+        for (int h=0; h<H; h++) {
+            Point home = homeList.get(h);
+            for (int c=0; c<C; c++) {
+                Point chicken = chickenList.get(c);
+                dist[h][c] = Math.abs(home.getX() - chicken.getX()) + Math.abs(home.getY() - chicken.getY());
+            }
+        }
+
+        visited = new boolean[C];
+        combination(0, 0, C, M);
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         bw.write(answer+"\n");
@@ -40,14 +53,12 @@ class Main {
     public static void combination(int start, int depth, int n, int r) {
         if (depth == r) {
             int result = 0;
-            for (int i=0; i<homeList.size(); i++) {
-                Point home = homeList.get(i);
+            for (int h=0; h<homeList.size(); h++) {
                 int temp = Integer.MAX_VALUE;
-                for (int j=0; j<chickenList.size(); j++) {
-                    if (visited[j]) {
-                        Point chicken = chickenList.get(j);
-                        int dist = Math.abs(home.getX() - chicken.getX()) + Math.abs(home.getY() - chicken.getY());
-                        temp = Math.min(temp, dist);
+                for (int c=0; c<chickenList.size(); c++) {
+                    if (visited[c]) {
+                        int distance = dist[h][c];
+                        temp = Math.min(temp, distance);
                     }
                 }
                 result += temp;
