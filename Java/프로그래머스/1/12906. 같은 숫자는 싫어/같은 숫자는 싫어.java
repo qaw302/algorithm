@@ -2,19 +2,19 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        int[] answer = {};
-        
-        Deque<Integer> stack = new ArrayDeque<>();
-        for (int i : arr) {
-            if (stack.isEmpty() || stack.peek() != i) {
-                stack.push(i);
+        LinkedList<Integer> q = new LinkedList<>();
+        for (int num : arr) {
+            
+            if (q.isEmpty() || q.getLast() != num) {
+                q.add(num);
             }
         }
         
-        answer = new int[stack.size()];
-        for (int i=answer.length-1; i>=0; i--) {
-            answer[i] = stack.pop();
+        int[] answer = new int[q.size()];
+        for (int i=0; i<answer.length; i++) {
+            answer[i] = q.poll();
         }
+
         return answer;
     }
 }
