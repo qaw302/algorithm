@@ -2,17 +2,20 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        List<Integer> q = new ArrayList<>();
-        for (int num : arr) {
-            if (q.isEmpty() || !q.get(q.size()-1).equals(num)) {
-                q.add(num);
+        List<Integer> result = new ArrayList<>();
+        int pre = -1;
+        for (int num:arr) {
+            if (pre != num) {
+                result.add(num);
+                pre = num;
             }
         }
         
-        int[] answer = new int[q.size()];
+        int[] answer = new int[result.size()];
         for (int i=0; i<answer.length; i++) {
-            answer[i] = q.get(i);
+            answer[i] = result.get(i);
         }
+        
 
         return answer;
     }
