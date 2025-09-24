@@ -6,19 +6,13 @@ class Solution {
 
         for (int col=0; col<commands.length; col++) {
             int[] command = commands[col];
-            int i = command[0];
+            int i = command[0]-1;
             int j = command[1];
-            int k = command[2];
+            int k = command[2]-1;
             
-            int[] subarr = new int[j-i+1];
-            System.arraycopy(array, i-1, subarr, 0, j-i+1);
-            List<Integer> list = new LinkedList<>();
-            for (int num:subarr){
-                list.add(num);
-            }
-            Collections.sort(list);
-            
-            answer[col] = list.get(k-1);
+            int[] subarr = Arrays.copyOfRange(array, i, j);
+            Arrays.sort(subarr);
+            answer[col] = subarr[k];
         }
         return answer;
     }
