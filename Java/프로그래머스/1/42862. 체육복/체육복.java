@@ -10,31 +10,19 @@ class Solution {
             students[l-1]--;
         }
         
-        
-        if (students[0] == -1 && students[1] == 1) {
-            students[0]++;
-            students[1]++;
-            
-        }
-        
-        for (int i=1; i<n-1; i++) {
+        for (int i=0; i<n; i++) {
             if (students[i] == -1) {
-                if (students[i-1] == 1) {
+                if (i > 0 && students[i-1] == 1) {
                     students[i]++;
                     students[i-1]--;
                     
-                } else if (students[i+1] == 1) {
+                } else if (i < n-1 && students[i+1] == 1) {
                     students[i]++;
                     students[i+1]--;
                 }
             }
         }
-        
-        if (students[n-1] == -1 && students[n-2] == 1) {
-            students[n-1]++;
-            students[n-2]++;
-            
-        }
+
         
         int answer = 0;
         for (int s : students) {
