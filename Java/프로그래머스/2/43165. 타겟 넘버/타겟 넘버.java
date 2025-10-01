@@ -1,24 +1,22 @@
-import java.util.List;
-import java.util.ArrayList;
-
 class Solution {
     public int solution(int[] numbers, int target) {
-        List<Integer> results = new ArrayList<>();
-        results.add(0);
-        for(int num : numbers) {
-            List<Integer> temp = new ArrayList<>();
-            for (int result : results) {
-                temp.add(result + num);
-                temp.add(result - num);
-            }
-            results = temp;
-        }
         int answer = 0;
-        for (int result:results){
-            if (result==target){
-                answer++;
+        return dfs(numbers, target, 0, 0);
+    }
+    
+    public int dfs(int[] numbers, int target, int depth, int sum) {
+
+        if (depth == numbers.length) {
+            if (sum == target) {
+                return 1;
+            } else {
+                return 0;
             }
         }
-        return answer;
+        int a = dfs(numbers, target, depth+1, sum+numbers[depth]);
+        int b = dfs(numbers, target, depth+1, sum-numbers[depth]);
+        
+        return a+b;
+        
     }
 }
