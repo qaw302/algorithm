@@ -1,46 +1,38 @@
 import java.util.*;
+
 class Solution {
     public int solution(int N, int number) {
-        if (N == number) {
-            return 1;
-        }
-        
-        ArrayList<Set<Integer>> dp = new ArrayList<>(number);
-        dp.add(Collections.emptySet()); 
-        dp.add(new HashSet<>());
-        dp.get(1).add(N);
-        
-        int answer = 0;
-        for (int i=2; i<=number; i++) {  // 지금 생성할 i = dp 인덱스
-            Set<Integer> s = new HashSet<>();  
-            
-            int temp = N;
-            for (int k=1; k<i; k++) {
-                temp = temp*10 + N;
+        HashMap<Integer, HashSet<Integer>> cases = new HashMap<>();
+        if (N==number) return 1;
+        int answer = -1;
+        int i = 1;
+        while(i<=8) {
+            HashSet<Integer> set = new HashSet<>();
+            int num = N;
+            for (int n=1; n<i; n++) {
+                num = num*10 + N;
             }
-            s.add(temp);
+            set.add(num);
             
-            for (int j=1; j<i; j++) {  //j dp[x] 의 요소 인덱스
-                for (Integer val1 : dp.get(i-j)) {
-                    for (Integer val2 : dp.get(j)) {
-                        s.add(val1+val2);
-                        s.add(val1-val2);
-                        s.add(val1*val2);
-                        if (val2 != 0) {
-                            s.add(val1/val2);
+            for(int j=1; j<i; j++) {
+                for(int a : cases.get(j)) {
+                    for(int b : cases.get(i-j)) {
+                        set.add(a+b);
+                        set.add(a-b);
+                        set.add(a*b);
+                        if (b!=0) {
+                            set.add(a/b);
+                        }
+                        if (set.contains(number)){
+                            return i;
                         }
                     }
                 }
             }
-
-            if (s.contains(number)) {
-                answer = i;
-                break;
-            } else {
-                dp.add(s);
-            }
+            cases.put(i, set);
+            i++;
         }
         
-        return answer <= 8 ? answer : -1;
+        return answer;
     }
 }
