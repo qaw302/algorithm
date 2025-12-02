@@ -1,33 +1,28 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<algorithm>
+
 using namespace std;
 
-int a[9];
+int a[9], sum;
 int main() {
 	for(int i=0; i<9; i++) {
 		cin >> a[i];
+		sum+= a[i];
 	}
-
-	for(int i=0; i<8; i++) {
-		for(int j=i+1; j<9; j++) {
-			int sum=0;
-			for (int k=0; k<9; k++) {
-				if (k!=i & k!=j) {
-					sum += a[k];
-				}
-			}
-			if (sum == 100) {
-				a[i]=0;
-				a[j]=0;
-
-				sort(a, a+9);
-				for (int h : a) {
-					if (h!=0){
-						cout << h << "\n";
-					}
-				}
-				return 0;
+	for (int i=0; i<8; i++) {
+		for (int j=i+1; j<9; j++) {
+			if (sum - a[i] - a[j] == 100) {
+				a[i] = 0;
+				a[j] = 0;
+				i=9;
 			}
 		}
 	}
+
+	sort(a, a+9);
+	for (int i=2; i<9;i++) {
+		cout << a[i] << '\n';
+	}
+
 	return 0;
 }
