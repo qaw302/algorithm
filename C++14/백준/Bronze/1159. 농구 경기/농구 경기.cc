@@ -12,8 +12,7 @@ int main() {
 	cin >> n;
 	for (int i=0; i<n; i++) {
 		cin >> f;
-		char c = (char) f[0] - 'a';
-		cnt[c]++;
+		cnt[f[0] - 'a']++;
 	}
 
 
@@ -23,7 +22,7 @@ int main() {
 		}
 	}
 
-	if (result.size() == 0) {
+	if (!result.size()) {
 		result = "PREDAJA";
 	}
 
